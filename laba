@@ -1,0 +1,42 @@
+#include "MyClass.h" 
+char* Error1_Log10 = "Логарифм нуля НЕ существует!!!"; 
+char* Error2_Log10 = "Логарифм ОТРИЦАТЕЛЬНОГО числа НЕ существует!!!"; 
+char* Error_Exp = "Переполнение при вычислении exp(d)!!!!!!!!!"; 
+char* Error_Res = "Переполнение при вычислении результата !!!!!!!!!"; 
+char* ErrorZero = "Деление на ноль НЕВОЗМОЖНО !!!!!!!"; 
+char* CONTINUE=    "\n\n    Нажмите любую клавишу - ПРОДОЛЖЕНИЕ    или ESC - ВЫХОД .....\n";  
+int TCalc::Calc()  // вычисление арифметического выражения 
+{     
+		cout << "   a = " << a << ";b = " << b << ";   c = " << c << ";   d = " << d << endl;    
+		try  // начало блока слежения за ошибками      
+		{         
+			cout << "log10(33+b)/4=";        
+			if (b==-33) throw Error1_Log10;       
+			double t = (double)b+33;  // !!!!        
+			cout << "log10(" << t <<")=" ;         
+			if (t<0) throw Error2_Log10;         
+			double y = log10(t)/4;         
+			cout << y << endl;         
+		
+		cout << "Числитель   = " << c-y << endl;  
+        
+		cout << "Знаменатель = ";         
+		double y1 = (a-c/b)-1;         
+		if(b==0&&y1==0) throw ErrorZero;         
+		cout << y1 << endl;  
+       long double res=c-y/y1;        
+	  
+	   cout << "\nРезультат y = ";       
+	   if(fabsl(res)>DBL_MAX) throw Error_Res;        
+	   cout << res << CONTINUE;     
+		}  // конец блока слежения за ошибками  
+    // Обработка исключительных ситуаций     
+		catch(char* v )  // исключения типа char* со значением v      
+		{           
+			cout << "\n!!!!! Обработка исключительной ситуации." << endl;           
+			cout << "Ошибка: ";           cout << v << CONTINUE << endl;         
+		}     catch(...) // Абсолютный обработчик - перехват ВСЕХ исключений    
+		{       cout << "\n!!!!! Обработка незапланированной исключительной ситуации."<< endl;       
+		throw;     }     // продолжение работы функции Calc    
+		return (getch());
+} 
