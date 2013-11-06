@@ -29,7 +29,7 @@ int TCalc::Calc()  // вычисление арифметического выр
 	   cout << "\nРезультат y = ";       
 	   if(fabsl(res)>DBL_MAX) throw Error_Res;        
 	   cout << res << CONTINUE;     
-		}  // конец блока слежения за ошибками  
+		} 
     // Обработка исключительных ситуаций     
 		catch(char* v )  // исключения типа char* со значением v      
 		{           
